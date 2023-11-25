@@ -30,6 +30,8 @@ mesFrio = ''
 temperaturaMesFrio = 50
 
 quantidadeMesesQuentes = []
+temperaturas = []
+
 for current in dadosArray:
     if (temperaturaMesQuente <= current['temperatura']):
         temperaturaMesQuente = current['temperatura']
@@ -42,14 +44,18 @@ for current in dadosArray:
     if (current["temperatura"] > 38):
         quantidadeMesesQuentes.append(current["temperatura"])
 
-temperaturaMedia = 0
+    temperaturas.append(current["temperatura"])
+
+temperaturaMediaEscaldante = 0
 if len(quantidadeMesesQuentes) > 0:
-    temperaturaMedia = sum(quantidadeMesesQuentes) / len(quantidadeMesesQuentes)
+    temperaturaMediaEscaldante = sum(quantidadeMesesQuentes) / len(quantidadeMesesQuentes)
+
+temperaturaMediaAnual = sum(temperaturas) / len(temperaturas)
 
 print(f"O mês mais quente é {calendar.month_name[mesQuente]} com a temperatura de {temperaturaMesQuente}")
 print(f"O mês mais frio é {calendar.month_name[mesFrio]} com a temperatura de {temperaturaMesFrio}")
 
-if temperaturaMedia > 0:
-    print(f"Ao todo foram {len(quantidadeMesesQuentes)} meses de altas temperaturas. A média das temperaturas desses meses mais quentes são de {temperaturaMedia}")
+if temperaturaMediaEscaldante > 0:
+    print(f"Ao todo foram {len(quantidadeMesesQuentes)} meses de altas temperaturas. A média das temperaturas desses meses mais quentes são de {temperaturaMediaEscaldante}. A temperatura anual foi de {temperaturaMediaAnual}")
 else:
-    print("Não houve temperatura escaldante neste ano")
+    print(f"Não houve temperatura escaldante neste ano. A temperatura média anual foi {temperaturaMediaAnual}")
