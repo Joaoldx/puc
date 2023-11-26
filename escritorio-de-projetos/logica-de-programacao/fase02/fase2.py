@@ -41,13 +41,38 @@ for idx, linha in enumerate(arq):
     arqArray.append(tupla)
 arq.close()
 
-diaInicial =  10 # int(input('qual é o dia incicial? '))
-mesInicial =  10 # int(input('qual é o mês incicial? '))
-anoInicial =  2000 # int(input('qual é o ano incicial? '))
+# inicial
+diaInicial = int(input('qual é o dia incicial? '))
+while (diaInicial < 1) or (diaInicial > 31):
+    print("dia inicial inválido, por favor digite novamente o dia inicial. O valor deve ser 1 até 31 ")
+    diaInicial = int(input("Digite o diaInicial "))
 
-diaFinal =  10 # int(input('qual é o dia final? '))
-mesFinal =  10 # int(input('qual é o mês final? '))
-anoFinal =  2002 # int(input('qual é o ano final? '))
+mesInicial = int(input('qual é o mês incicial? '))
+while (mesInicial < 1) or (mesInicial > 12):
+    print("mes incial inválido, por favor digite novamente o mes incial. O valor deve ser 1 até 12 ")
+    mesInicial = int(input("Digite o mes incial "))
+
+anoInicial = int(input('qual é o ano incicial? '))
+while (anoInicial < 1961) or (anoInicial > 2016):
+    print("Ano inicial inválido, por favor digite novamente o ano inicial. O valor deve ser 1961 até 2016 ")
+    anoInicial = int(input("Digite o ano incial "))
+
+
+# final
+diaFinal = int(input('qual é o dia final? '))
+while (diaFinal < 1) or (diaFinal > 31):
+    print("dia final inválido, por favor digite novamente o dia final. O valor deve ser 1 até 31 ")
+    diaFinal = int(input("Digite o diaFinal "))
+
+mesFinal = int(input('qual é o mês final? '))
+while (mesFinal < 1) or (mesFinal > 12):
+    print("mes final inválido, por favor digite novamente o mes final. O valor deve ser 1 até 12 ")
+    mesFinal = int(input("Digite o mes final "))
+
+anoFinal = int(input('qual é o ano final? '))
+while (anoFinal < 1961) or (anoFinal > 2016):
+    print("Ano inicifinal inválido, por favor digite novamente o ano final. O valor deve ser 1961 até 2016 ")
+    anoFinal = int(input("Digite o ano incial "))
 
 dataInicial = datetime.datetime(anoInicial, mesInicial, diaInicial)
 dataFinal = datetime.datetime(anoFinal, mesFinal, diaFinal)
@@ -130,27 +155,32 @@ obterMesMaiorPrecipitcao(arqArray)
 
 #C - Média da temperatura mínina
 
-idx = 0
-temperaturasMininas = []
 
-while idx < len(arqArray):
-    mesSelecionado = mesInicial
-    mesAtual = arqArray[idx][0].split("/")[1]
-    
-    if int(mesAtual) != mesSelecionado:
+def obterTemperaturasMinimas():
+    idx = 0
+    temperaturasMininas = []
+
+    while idx < len(arqArray):
+        mesSelecionado = mesInicial
+        mesAtual = arqArray[idx][0].split("/")[1]
+        
+        if int(mesAtual) != mesSelecionado:
+            idx += 6
+            continue
+
+        dataComeco = datetime.datetime(2006, mesSelecionado, 1)
+        dataFinal = datetime.datetime(2016, mesSelecionado, 31)
+
+        dataAtual = datetime.datetime.strptime(arqArray[idx][0], '%d/%m/%Y')
+
+        if dataComeco <= dataAtual and dataFinal >= dataAtual:
+            temperaturasMininas.append(float(arqArray[idx][3]))
+
+            anoAtual = arqArray[idx][0].split("/")[2]
         idx += 6
-        continue
 
-    dataComeco = datetime.datetime(2006, mesSelecionado, 1)
-    dataFinal = datetime.datetime(2016, mesSelecionado, 31)
+    mediaTemperaturaMinimaTotal = sum(temperaturasMininas) / len(temperaturasMininas)
 
-    dataAtual = datetime.datetime.strptime(arqArray[idx][0], '%d/%m/%Y')
+    print(f"A média da temperatura mínima em 11 anos é {mediaTemperaturaMinimaTotal:.2f}ºC")
 
-    if dataComeco <=  dataAtual and dataFinal >= dataAtual:
-        print(f"linha {arqArray[idx][0]}")
-        temperaturasMininas.append(float(arqArray[idx][3]))
-    idx += 6
-
-mediaTemperaturaMinimaTotal = sum(temperaturasMininas) / len(temperaturasMininas)
-
-print(f"A média da temperatura mínima em 11 anos é {mediaTemperaturaMinimaTotal}")
+obterTemperaturasMinimas()
