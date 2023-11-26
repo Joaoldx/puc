@@ -129,11 +129,28 @@ periodoSelecionado = obterPeriodoSelecionado(dataInicial, dataFinal)
 obterMesMaiorPrecipitcao(arqArray)
 
 #C - Média da temperatura mínina
-for idx, linha in enumerate(arqArray):
-    mesSelecionado = mesInicial
-    anoSelecionado = anoInicial
-    dataComeco = datetime.datetime(anoSelecionado, mesSelecionado, 1)
-    dataFinal = datetime.datetime(anoSelecionado, mesSelecionado, 31)
 
-    if dataComeco >=  datetime.datetime.strptime(linha[0], '%d/%m/%Y'):
-        print(linha[0])
+idx = 0
+temperaturasMininas = []
+
+while idx < len(arqArray):
+    mesSelecionado = mesInicial
+    mesAtual = arqArray[idx][0].split("/")[1]
+    
+    if int(mesAtual) != mesSelecionado:
+        idx += 6
+        continue
+
+    dataComeco = datetime.datetime(2006, mesSelecionado, 1)
+    dataFinal = datetime.datetime(2016, mesSelecionado, 31)
+
+    dataAtual = datetime.datetime.strptime(arqArray[idx][0], '%d/%m/%Y')
+
+    if dataComeco <=  dataAtual and dataFinal >= dataAtual:
+        print(f"linha {arqArray[idx][0]}")
+        temperaturasMininas.append(float(arqArray[idx][3]))
+    idx += 6
+
+mediaTemperaturaMinimaTotal = sum(temperaturasMininas) / len(temperaturasMininas)
+
+print(f"A média da temperatura mínima em 11 anos é {mediaTemperaturaMinimaTotal}")
