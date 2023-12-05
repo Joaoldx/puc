@@ -78,12 +78,12 @@ while (anoFinal < 1961) or (anoFinal > 2016):
 diaFinal = int(input('qual é o dia final? '))
 alcanceDataFinal = calendar.monthrange(anoInicial, mesInicial)
 
-while diaInicial < 1 or diaInicial > alcanceDataFinal[1]:
-    if  diaInicial > alcanceDataFinal[1]:
+while diaFinal < 1 or diaFinal > alcanceDataFinal[1]:
+    if  diaFinal > alcanceDataFinal[1]:
         print(f"Dia final inválido para o mês {calendar.month_name[mesFinal]}. O maior dia válido para este mês é {alcanceDataFinal[1]}.")
     else:
         print("dia final inválido, por favor digite novamente o dia final. O valor deve ser 1 até 31 ")
-    diaInicial = int(input("Digite o dia inicial "))
+    diaFinal = int(input("Digite o dia inicial "))
 
 
 dataInicial = datetime.datetime(anoInicial, mesInicial, diaInicial)
