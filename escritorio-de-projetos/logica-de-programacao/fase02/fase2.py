@@ -42,10 +42,6 @@ for idx, linha in enumerate(arq):
 arq.close()
 
 # inicial
-diaInicial = int(input('qual é o dia incicial? '))
-while (diaInicial < 1) or (diaInicial > 31):
-    print("dia inicial inválido, por favor digite novamente o dia inicial. O valor deve ser 1 até 31 ")
-    diaInicial = int(input("Digite o diaInicial "))
 
 mesInicial = int(input('qual é o mês incicial? '))
 while (mesInicial < 1) or (mesInicial > 12):
@@ -57,12 +53,17 @@ while (anoInicial < 1961) or (anoInicial > 2016):
     print("Ano inicial inválido, por favor digite novamente o ano inicial. O valor deve ser 1961 até 2016 ")
     anoInicial = int(input("Digite o ano incial "))
 
+diaInicial = int(input('qual é o dia incicial? '))
+
+alcanceDataInicial = calendar.monthrange(anoInicial, mesInicial)
+while diaInicial < 1 or diaInicial > alcanceDataInicial[1]:
+    if  diaInicial > alcanceDataInicial[1]:
+        print(f"Dia inicial inválido para o mês {calendar.month_name[mesInicial]}. O maior dia válido para este mês é {alcanceDataInicial[1]}.")
+    else:
+        print("dia inicial inválido, por favor digite novamente o dia inicial. O valor deve ser 1 até 31 ")
+    diaInicial = int(input("Digite o dia inicial "))
 
 # final
-diaFinal = int(input('qual é o dia final? '))
-while (diaFinal < 1) or (diaFinal > 31):
-    print("dia final inválido, por favor digite novamente o dia final. O valor deve ser 1 até 31 ")
-    diaFinal = int(input("Digite o diaFinal "))
 
 mesFinal = int(input('qual é o mês final? '))
 while (mesFinal < 1) or (mesFinal > 12):
@@ -73,6 +74,17 @@ anoFinal = int(input('qual é o ano final? '))
 while (anoFinal < 1961) or (anoFinal > 2016):
     print("Ano inicifinal inválido, por favor digite novamente o ano final. O valor deve ser 1961 até 2016 ")
     anoFinal = int(input("Digite o ano incial "))
+
+diaFinal = int(input('qual é o dia final? '))
+alcanceDataFinal = calendar.monthrange(anoInicial, mesInicial)
+
+while diaInicial < 1 or diaInicial > alcanceDataFinal[1]:
+    if  diaInicial > alcanceDataFinal[1]:
+        print(f"Dia final inválido para o mês {calendar.month_name[mesFinal]}. O maior dia válido para este mês é {alcanceDataFinal[1]}.")
+    else:
+        print("dia final inválido, por favor digite novamente o dia final. O valor deve ser 1 até 31 ")
+    diaInicial = int(input("Digite o dia inicial "))
+
 
 dataInicial = datetime.datetime(anoInicial, mesInicial, diaInicial)
 dataFinal = datetime.datetime(anoFinal, mesFinal, diaFinal)
